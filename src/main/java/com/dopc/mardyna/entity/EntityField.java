@@ -1,5 +1,7 @@
 package com.dopc.mardyna.entity;
 
+import java.util.Date;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -45,32 +47,14 @@ public class EntityField {
     @Column(name = "isprimary", nullable = true)
     private boolean isprimary;
     
-    @Column(name = "querycode", nullable = true)
-    private String querycode;
-    
     @Column(name = "isnullable", nullable = true)
     private boolean isnullable;
     
-    @Column(name = "lookupsource", nullable = true)
-    private String lookupsource;
+    @Column(name = "createdat", nullable = false)
+    private Date createdAt;
     
-    @Column(name = "isuppercase", nullable = true)
-    private boolean isuppercase;
-    
-    @Column(name = "retrievedvaluequery", nullable = true)
-    private String retrievedvaluequery;
-    
-    @Column(name = "iscomputedvalue", nullable = true)
-    private boolean iscomputedvalue;
-    
-    @Column(name = "computeddata", nullable = true)
-    private String computeddata;
-    
-    @Column(name = "isretrievedvalue", nullable = true)
-    private boolean isretrievedvalue;
-    
-    @Column(name = "parentfield", nullable = true)
-    private String parentfield;
+    @Column(name = "updateddat", nullable = false)
+    private Date updatedAt;
     
     @ManyToOne
     @JoinColumn(name = "entity_schema_id", nullable = false)
@@ -78,6 +62,8 @@ public class EntityField {
 
 	public EntityField() {
 		super();
+		this.createdAt = new Date();
+		this.updatedAt = new Date();
 	}
 
 	public void setId(Long id) {
@@ -160,14 +146,6 @@ public class EntityField {
 		this.isprimary = isprimary;
 	}
 
-	public String getQuerycode() {
-		return querycode;
-	}
-
-	public void setQuerycode(String querycode) {
-		this.querycode = querycode;
-	}
-
 	public boolean isIsnullable() {
 		return isnullable;
 	}
@@ -176,60 +154,20 @@ public class EntityField {
 		this.isnullable = isnullable;
 	}
 
-	public String getLookupsource() {
-		return lookupsource;
+	public Date getCreatedAt() {
+		return createdAt;
 	}
 
-	public void setLookupsource(String lookupsource) {
-		this.lookupsource = lookupsource;
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
 	}
 
-	public boolean isIsuppercase() {
-		return isuppercase;
+	public Date getUpdatedAt() {
+		return updatedAt;
 	}
 
-	public void setIsuppercase(boolean isuppercase) {
-		this.isuppercase = isuppercase;
-	}
-
-	public String getRetrievedvaluequery() {
-		return retrievedvaluequery;
-	}
-
-	public void setRetrievedvaluequery(String retrievedvaluequery) {
-		this.retrievedvaluequery = retrievedvaluequery;
-	}
-
-	public boolean isIscomputedvalue() {
-		return iscomputedvalue;
-	}
-
-	public void setIscomputedvalue(boolean iscomputedvalue) {
-		this.iscomputedvalue = iscomputedvalue;
-	}
-
-	public String getComputeddata() {
-		return computeddata;
-	}
-
-	public void setComputeddata(String computeddata) {
-		this.computeddata = computeddata;
-	}
-
-	public boolean isIsretrievedvalue() {
-		return isretrievedvalue;
-	}
-
-	public void setIsretrievedvalue(boolean isretrievedvalue) {
-		this.isretrievedvalue = isretrievedvalue;
-	}
-
-	public String getParentfield() {
-		return parentfield;
-	}
-
-	public void setParentfield(String parentfield) {
-		this.parentfield = parentfield;
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 
 	public EntitySchema getEntitySchema() {
@@ -240,6 +178,4 @@ public class EntityField {
 		this.entitySchema = entitySchema;
 	}
 	
-	
-   
 }
