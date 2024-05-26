@@ -47,4 +47,14 @@ public class EntitySchemaController {
     public List<EntitySchema> advancedSearch(@RequestParam String criteria) {
         return service.advancedSearch(criteria);
     }
+    
+    @GetMapping("/generate/{id}")
+    public EntitySchema generate(@PathVariable Long id) {
+        return service.generate(id);
+    }
+    
+    @GetMapping("/ungenerate/{id}")
+    public EntitySchema unGenerate(@PathVariable Long id) {
+        return service.unGenerate(id);
+    }
 }

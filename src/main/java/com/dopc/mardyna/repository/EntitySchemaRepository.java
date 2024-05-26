@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EntitySchemaRepository extends JpaRepository<EntitySchema, Long> {
+
+	EntitySchema findByName(String name);
 }

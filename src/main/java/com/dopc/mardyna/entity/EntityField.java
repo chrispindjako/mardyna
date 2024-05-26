@@ -2,12 +2,14 @@ package com.dopc.mardyna.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -32,23 +34,14 @@ public class EntityField {
     @Column(name = "maxlength", nullable = true)
     private Integer maxlength;
     
-    @Column(name = "label", nullable = true)
-    private String label;
-    
     @Column(name = "precision", nullable = true)
     private Integer precision;
-    
-    @Column(name = "sequence", nullable = true)
-    private Integer sequence;
     
     @Column(name = "scale", nullable = true)
     private Integer scale;
     
-    @Column(name = "isprimary", nullable = true)
-    private boolean isprimary;
-    
     @Column(name = "isnullable", nullable = true)
-    private boolean isnullable;
+    private Boolean isnullable;
     
     @Column(name = "createdat", nullable = false)
     private Date createdAt;
@@ -56,14 +49,18 @@ public class EntityField {
     @Column(name = "updateddat", nullable = false)
     private Date updatedAt;
     
-    @ManyToOne
-    @JoinColumn(name = "entity_schema_id", nullable = false)
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JsonBackReference
     private EntitySchema entitySchema;
 
 	public EntityField() {
 		super();
 		this.createdAt = new Date();
 		this.updatedAt = new Date();
+	}
+
+	public EntityField(String name) {
+		this.name = name;
 	}
 
 	public void setId(Long id) {
@@ -106,28 +103,12 @@ public class EntityField {
 		this.maxlength = maxlength;
 	}
 
-	public String getLabel() {
-		return label;
-	}
-
-	public void setLabel(String label) {
-		this.label = label;
-	}
-
 	public Integer getPrecision() {
 		return precision;
 	}
 
 	public void setPrecision(Integer precision) {
 		this.precision = precision;
-	}
-
-	public Integer getSequence() {
-		return sequence;
-	}
-
-	public void setSequence(Integer sequence) {
-		this.sequence = sequence;
 	}
 
 	public Integer getScale() {
@@ -138,19 +119,11 @@ public class EntityField {
 		this.scale = scale;
 	}
 
-	public boolean isIsprimary() {
-		return isprimary;
-	}
-
-	public void setIsprimary(boolean isprimary) {
-		this.isprimary = isprimary;
-	}
-
-	public boolean isIsnullable() {
+	public Boolean isIsnullable() {
 		return isnullable;
 	}
 
-	public void setIsnullable(boolean isnullable) {
+	public void setIsnullable(Boolean isnullable) {
 		this.isnullable = isnullable;
 	}
 

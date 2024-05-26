@@ -31,6 +31,11 @@ public class EntitySchemaService {
         return repository.findById(id).orElse(null);
     }
 
+	public EntitySchema findByName(String name) {
+		// TODO Auto-generated method stub
+		return repository.findByName(name);
+	}
+	
     public Page<EntitySchema> findAll(Pageable pageable) {
         return repository.findAll(pageable);
     }
@@ -39,4 +44,17 @@ public class EntitySchemaService {
         // Implement advanced search logic here
         return List.of(); // Example
     }
+
+	public EntitySchema generate(Long id) {
+		EntitySchema entitySchema =  findById(id);
+		entitySchema.setIsgenerated(true);
+		return save(entitySchema);
+	}
+	
+	public EntitySchema unGenerate(Long id) {
+		EntitySchema entitySchema =  findById(id);
+		entitySchema.setIsgenerated(false);
+		return save(entitySchema);
+	}
+
 }

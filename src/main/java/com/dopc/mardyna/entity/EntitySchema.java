@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,14 +35,19 @@ public class EntitySchema {
     
     @Column(name = "updateddat", nullable = false)
     private Date updatedAt;
+    
+    @Column(name = "isgenerated", nullable = true)
+    private Boolean isgenerated;
 
     @OneToMany(mappedBy = "entitySchema")
+    @JsonManagedReference
     private List<EntityField> fields;
 
 	public EntitySchema() {
 		super();
 		this.createdAt = new Date();
 		this.updatedAt = new Date();
+		this.isgenerated = false;
 		this.fields = new ArrayList<EntityField>();
 	}
 	
@@ -82,6 +89,14 @@ public class EntitySchema {
 
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+
+	public Boolean isIsgenerated() {
+		return isgenerated;
+	}
+
+	public void setIsgenerated(Boolean isgenerated) {
+		this.isgenerated = isgenerated;
 	}
 
 	public List<EntityField> getFields() {
