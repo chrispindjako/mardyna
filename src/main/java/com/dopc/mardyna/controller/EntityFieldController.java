@@ -11,7 +11,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/entity-fields")
+@RequestMapping("/api/admin/entity-fields")
 public class EntityFieldController {
 
     @Autowired

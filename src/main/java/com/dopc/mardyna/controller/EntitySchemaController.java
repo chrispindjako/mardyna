@@ -11,7 +11,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/entity-schemas")
+@RequestMapping("/api/admin/entity-schemas")
 public class EntitySchemaController {
 
     @Autowired
