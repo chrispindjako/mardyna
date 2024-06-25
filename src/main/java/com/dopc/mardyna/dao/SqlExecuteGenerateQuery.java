@@ -49,6 +49,7 @@ public class SqlExecuteGenerateQuery {
 		fields.add(new EntityField("id"));
     	// Connect to the database
         Connection connection = getConnection();
+
         // Calculer l'offset
         Long offset = null;
         Integer limit = null;
@@ -62,12 +63,24 @@ public class SqlExecuteGenerateQuery {
         String p = (queryBuilder.getProject() == null || queryBuilder.getProject().isEmpty()) ? "*" : queryBuilder.getProjectListString();
 		String q = "SELECT " + p + " FROM " + entityName + 
 				queryBuilder.generateWhereClause() + 
-				(queryBuilder.getOrderby() != null ? " ORDER BY " + queryBuilder.getOrderby() + " " + queryBuilder.getOrderby() : " ") + 
-				(limit != null ? " LIMIT " + limit + " " : "") + 
-				(queryBuilder.getPage() != null ? " OFFSET " + offset + " " : "");
+				(queryBuilder.getOrderby() != null ? " ORDER BY " + queryBuilder.getOrderby() + " " + queryBuilder.getOrderby() : " ORDER BY ID ");
+		
+		if (limit != null && limit > 0 && offset > 0 && queryBuilder.getPage() > 0) {
+			 if (driverClassName.equals("com.microsoft.sqlserver.jdbc.SQLServerDriver")) {
+	             q = q + " OFFSET " + offset + " ROWS FETCH NEXT " + offset + " ROWS ONLY ";
+	         } else if (driverClassName.equals("org.postgresql.Driver")) {
+	             q = q + " OFFSET " + offset ;
+	         }	else if (driverClassName.equals("oracle.jdbc.driver.OracleDriver")){
+	        	 q = q + "OFFSET " + offset + " ROWS FETCH NEXT " + offset + " ROWS ONLY";
+	         }
+		}
+				
 		// Perform desired database operations
         PreparedStatement preparedStatement = connection.prepareStatement(q);
-       
+        if (limit > 0) {
+        	preparedStatement.setMaxRows(limit);
+		}
+        
         
         ResultSet resultSet = preparedStatement.executeQuery();
         List<Map<String, Object>> list = convertToList(resultSet, fields, queryBuilder.getProject());
