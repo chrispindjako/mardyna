@@ -5,10 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -65,7 +62,7 @@ public class SqlExecuteGenerateQuery {
 				queryBuilder.generateWhereClause() + 
 				(queryBuilder.getOrderby() != null ? " ORDER BY " + queryBuilder.getOrderby() + " " + queryBuilder.getOrderby() : " ORDER BY ID ");
 		
-		if (limit != null && limit > 0 && offset > 0 && queryBuilder.getPage() > 0) {
+		if (limit != null && limit > 0 && offset != null && offset > 0 && queryBuilder.getPage() > 0) {
 			 if (driverClassName.equals("com.microsoft.sqlserver.jdbc.SQLServerDriver")) {
 	             q = q + " OFFSET " + offset + " ROWS FETCH NEXT " + offset + " ROWS ONLY ";
 	         } else if (driverClassName.equals("org.postgresql.Driver")) {
@@ -77,7 +74,7 @@ public class SqlExecuteGenerateQuery {
 				
 		// Perform desired database operations
         PreparedStatement preparedStatement = connection.prepareStatement(q);
-        if (limit > 0) {
+        if (limit != null && limit > 0) {
         	preparedStatement.setMaxRows(limit);
 		}
         

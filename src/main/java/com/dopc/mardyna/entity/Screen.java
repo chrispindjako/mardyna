@@ -1,14 +1,13 @@
 package com.dopc.mardyna.entity;
 
-
 import java.io.Serializable;
 import java.util.Date;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="ENTITY_SCHEMA")
-public class EntitySchema  implements Serializable {
-
+@Table(name="SCREEN")
+public class Screen  implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 
     @Id
@@ -22,31 +21,30 @@ public class EntitySchema  implements Serializable {
     @Column(name = "description", nullable = false)
     private String description;
     
+    @Column(name = "type", nullable = false)
+    private String type;
+    
+    @Column(name = "url", nullable = true)
+    private String url;
+
+    @Column(name = "entity", nullable = true)
+    private Long entity;
+    
     @Column(name = "createdat", nullable = false)
     private Date createdAt;
     
     @Column(name = "updateddat", nullable = false)
     private Date updatedAt;
+
     
-    @Column(name = "isgenerated", nullable = true)
-    private Boolean isgenerated;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    private EntitySchema entitySchema;
 
-	/*
-	 * @OneToMany(mappedBy = "entitySchema")
-	 * 
-	 * @JsonManagedReference private List<EntityField> fields;
-	 * 
-	 * @OneToMany(mappedBy = "entitySchema")
-	 * 
-	 * @JsonManagedReference private List<Screen> screens;
-	 */
-
-	public EntitySchema() {
+	public Screen() {
 		super();
 		this.createdAt = new Date();
 		this.updatedAt = new Date();
-		this.isgenerated = false;
-//		this.fields = new ArrayList<EntityField>();
+		// this.fields = new ArrayList<EntityField>();
 	}
 	
 	public void setId(Long id) {
@@ -73,6 +71,23 @@ public class EntitySchema  implements Serializable {
 		this.description = description;
 	}
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -89,37 +104,23 @@ public class EntitySchema  implements Serializable {
 		this.updatedAt = updatedAt;
 	}
 
-	public Boolean isIsgenerated() {
-		return isgenerated;
+	public Long getEntity() {
+		return entity;
 	}
 
-	public void setIsgenerated(Boolean isgenerated) {
-		this.isgenerated = isgenerated;
-	}
-
-	public Boolean getIsgenerated() {
-		return isgenerated;
+	public void setEntity(Long entity) {
+		this.entity = entity;
 	}
 	
 	
 
-//	public List<EntityField> getFields() {
-//		return fields;
+//	public EntitySchema getEntitySchema() {
+//		return entitySchema;
 //	}
 //
-//	public void setFields(List<EntityField> fields) {
-//		this.fields = fields;
+//	public void setEntitySchema(EntitySchema entitySchema) {
+//		this.entitySchema = entitySchema;
 //	}
-//
-//	public List<Screen> getScreens() {
-//		return screens;
-//	}
-//
-//	public void setScreens(List<Screen> screens) {
-//		this.screens = screens;
-//	}
-
-	
 
     
 }

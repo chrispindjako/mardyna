@@ -1,7 +1,7 @@
 package com.dopc.mardyna.controller;
 
-import com.dopc.mardyna.entity.EntityField;
-import com.dopc.mardyna.service.EntityFieldService;
+import com.dopc.mardyna.entity.Screen;
+import com.dopc.mardyna.service.ScreenService;
 import com.dopc.mardyna.util.QueryBuilder;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,21 +14,21 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/admin/entity-fields")
-public class EntityFieldController {
+@RequestMapping("/api/admin/screens")
+public class ScreenController {
 
     @Autowired
-    private EntityFieldService service;
+    private ScreenService service;
 
     @PostMapping
-    public EntityField create(@RequestBody EntityField entityField) {
-        return service.save(entityField);
+    public Screen create(@RequestBody Screen screen) {
+        return service.save(screen);
     }
 
     @PutMapping("/{id}")
-    public EntityField update(@PathVariable Long id, @RequestBody EntityField entityField) {
-        entityField.setId(id);
-        return service.update(entityField);
+    public Screen update(@PathVariable Long id, @RequestBody Screen screen) {
+    	screen.setId(id);
+        return service.update(screen);
     }
 
     @DeleteMapping("/{id}")
@@ -37,17 +37,17 @@ public class EntityFieldController {
     }
 
     @GetMapping("/{id}")
-    public EntityField findById(@PathVariable Long id) {
+    public Screen findById(@PathVariable Long id) {
         return service.findById(id);
     }
     
     @GetMapping("/entity/{id}")
-    public List<EntityField> findByEntity(@PathVariable Long id) {
+    public List<Screen> findByEntity(@PathVariable Long id) {
         return service.findByEntity(id);
     }
 
     @GetMapping
-    public Page<EntityField> findAll(Pageable pageable) {
+    public Page<Screen> findAll(Pageable pageable) {
         return service.findAll(pageable);
     }
     
@@ -55,6 +55,5 @@ public class EntityFieldController {
     public List<HashMap<String, Object>> search(@RequestBody QueryBuilder queryBuilder) throws Exception {
         return service.search(queryBuilder);
     }
-    
     
 }

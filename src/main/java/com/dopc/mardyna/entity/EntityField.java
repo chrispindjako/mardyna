@@ -1,25 +1,18 @@
 package com.dopc.mardyna.entity;
 
+import java.io.Serializable;
 import java.util.Date;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name="ENTITY_FIELD")
-public class EntityField {
+public class EntityField implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "name", nullable = false)
@@ -49,9 +42,11 @@ public class EntityField {
     @Column(name = "updateddat", nullable = false)
     private Date updatedAt;
     
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JsonBackReference
-    private EntitySchema entitySchema;
+    @Column(name = "entity", nullable = true)
+    private Long entity;
+    
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    private EntitySchema entitySchema;
 
 	public EntityField() {
 		super();
@@ -126,6 +121,10 @@ public class EntityField {
 	public void setIsnullable(Boolean isnullable) {
 		this.isnullable = isnullable;
 	}
+	
+	public Boolean getIsnullable() {
+		return isnullable;
+	}
 
 	public Date getCreatedAt() {
 		return createdAt;
@@ -143,12 +142,21 @@ public class EntityField {
 		this.updatedAt = updatedAt;
 	}
 
-	public EntitySchema getEntitySchema() {
-		return entitySchema;
+	public Long getEntity() {
+		return entity;
 	}
 
-	public void setEntitySchema(EntitySchema entitySchema) {
-		this.entitySchema = entitySchema;
+	public void setEntity(Long entity) {
+		this.entity = entity;
 	}
+
+	
+//	public EntitySchema getEntitySchema() {
+//		return entitySchema;
+//	}
+//
+//	public void setEntitySchema(EntitySchema entitySchema) {
+//		this.entitySchema = entitySchema;
+//	}
 	
 }

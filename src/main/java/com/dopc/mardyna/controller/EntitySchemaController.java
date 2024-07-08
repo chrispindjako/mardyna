@@ -2,11 +2,14 @@ package com.dopc.mardyna.controller;
 
 import com.dopc.mardyna.entity.EntitySchema;
 import com.dopc.mardyna.service.EntitySchemaService;
+import com.dopc.mardyna.util.QueryBuilder;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @CrossOrigin
@@ -43,9 +46,9 @@ public class EntitySchemaController {
         return service.findAll(pageable);
     }
     
-    @GetMapping("/search")
-    public List<EntitySchema> advancedSearch(@RequestParam String criteria) {
-        return service.advancedSearch(criteria);
+    @PostMapping("/search")
+    public List<HashMap<String, Object>> search(@RequestBody QueryBuilder queryBuilder) throws Exception {
+        return service.search(queryBuilder);
     }
     
     @GetMapping("/generate/{id}")

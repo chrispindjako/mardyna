@@ -1,13 +1,13 @@
 package com.dopc.mardyna.service;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dopc.mardyna.dao.SqlExecuteGenerateQuery;
 import com.dopc.mardyna.entity.EntityField;
+import com.dopc.mardyna.entity.EntitySchema;
 import com.dopc.mardyna.util.MatchBuilder;
 import com.dopc.mardyna.util.QueryBuilder;
 import com.dopc.mardyna.util.MatchBuilder.MATCH_OPERATOR;
@@ -19,11 +19,15 @@ public class DataService {
     private EntityFieldService entityFieldService;
     
     @Autowired
+    private EntitySchemaService entitySchemaservice;
+    
+    @Autowired
     private SqlExecuteGenerateQuery sqlExecuteGenerateQuery;
 
    
     public List<?> search(String entityName, QueryBuilder queryBuilder) throws Exception {
-    	List<EntityField> fields = entityFieldService.findByEntitySchema(entityName);
+    	EntitySchema entitySchema = entitySchemaservice.findByName(entityName);
+    	List<EntityField> fields = entityFieldService.findByEntity(entitySchema.getId());
         return sqlExecuteGenerateQuery.selectOperation(entityName, fields, queryBuilder);
     }	
     
@@ -45,13 +49,15 @@ public class DataService {
     }	
     
     public Object create(String entityName, QueryBuilder queryBuilder) throws ClassNotFoundException, SQLException {
-    	List<EntityField> fields = entityFieldService.findByEntitySchema(entityName);
+    	EntitySchema entitySchema = entitySchemaservice.findByName(entityName);
+    	List<EntityField> fields = entityFieldService.findByEntity(entitySchema.getId());
     	Long id = sqlExecuteGenerateQuery.insertOperation(entityName, fields, queryBuilder);
     	return findById(id, entityName, fields, queryBuilder);
     }
     
     public Object update(String entityName, Long id, QueryBuilder queryBuilder) throws ClassNotFoundException, SQLException {
-    	List<EntityField> fields = entityFieldService.findByEntitySchema(entityName);
+    	EntitySchema entitySchema = entitySchemaservice.findByName(entityName);
+    	List<EntityField> fields = entityFieldService.findByEntity(entitySchema.getId());
     	sqlExecuteGenerateQuery.updateOperation(entityName, fields, id, queryBuilder);
     	return findById(id, entityName, fields, queryBuilder);
     }

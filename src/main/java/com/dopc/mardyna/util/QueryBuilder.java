@@ -2,10 +2,7 @@ package com.dopc.mardyna.util;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.dopc.mardyna.entity.EntityField;
 import com.dopc.mardyna.helper.DynamicClassGenerator;
@@ -207,6 +204,15 @@ public class QueryBuilder {
 		return QueryBuilder.makeProjection(entityManager.createNativeQuery(q, dynamicClass)
 				.setMaxResults(queryBuilder.getLimit())
 				.setFirstResult((int) (queryBuilder.getPage() > 0 ? ( ( queryBuilder.getPage() - 1 ) * queryBuilder.getLimit() ) : 0)).getResultList() , queryBuilder.getProject(), dynamicClass);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static List<HashMap<String, Object>> QueryResult(QueryBuilder queryBuilder, String className, Class<?> _class, EntityManager entityManager) throws Exception {
+		String q = "SELECT * FROM " + className + queryBuilder.generateWhereClause() + (queryBuilder.orderby != null ? " ORDER BY " + queryBuilder.orderby + " " + queryBuilder.orderdir : "");
+		// System.out.print(q);
+		return QueryBuilder.makeProjection(entityManager.createNativeQuery(q, _class)
+				.setMaxResults(queryBuilder.getLimit())
+				.setFirstResult((int) (queryBuilder.getPage() > 0 ? ( ( queryBuilder.getPage() - 1 ) * queryBuilder.getLimit() ) : 0)).getResultList() , queryBuilder.getProject(), _class);
 	}
 
 	public static BigDecimal countResult(QueryBuilder query, String className, EntityManager entityManager) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
