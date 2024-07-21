@@ -31,6 +31,9 @@ public class EntitySchema  implements Serializable {
     @Column(name = "isgenerated", nullable = true)
     private Boolean isgenerated;
 
+    @Column(name = "synchronize", nullable = true)
+    private Boolean synchronize;
+    
 	/*
 	 * @OneToMany(mappedBy = "entitySchema")
 	 * 
@@ -46,7 +49,6 @@ public class EntitySchema  implements Serializable {
 		this.createdAt = new Date();
 		this.updatedAt = new Date();
 		this.isgenerated = false;
-//		this.fields = new ArrayList<EntityField>();
 	}
 	
 	public void setId(Long id) {
@@ -99,6 +101,14 @@ public class EntitySchema  implements Serializable {
 
 	public Boolean getIsgenerated() {
 		return isgenerated;
+	}
+
+	public Boolean getSynchronize() {
+		return synchronize;
+	}
+
+	public void setSynchronize(Boolean synchronize) {
+		this.synchronize = synchronize;
 	}
 	
 	

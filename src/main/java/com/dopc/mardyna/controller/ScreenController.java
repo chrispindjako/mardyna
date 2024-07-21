@@ -56,4 +56,14 @@ public class ScreenController {
         return service.search(queryBuilder);
     }
     
+    @PostMapping("/count")
+    public Integer count(@RequestBody QueryBuilder queryBuilder) throws Exception {
+        return service.count(queryBuilder);
+    }
+    
+    @GetMapping("/synchronize/{id}")
+    public Screen synchronize(@PathVariable Long id) {
+        return service.synchronize(id);
+    }
+    
 }

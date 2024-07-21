@@ -1,7 +1,7 @@
 package com.dopc.mardyna.service;
 
-import com.dopc.mardyna.entity.EntityField;
-import com.dopc.mardyna.repository.EntityFieldRepository;
+import com.dopc.mardyna.entity.ScreenField;
+import com.dopc.mardyna.repository.ScreenFieldRepository;
 import com.dopc.mardyna.util.QueryBuilder;
 
 import jakarta.persistence.EntityManager;
@@ -15,40 +15,40 @@ import java.util.HashMap;
 import java.util.List;
 
 @Service
-public class EntityFieldService {
+public class ScreenFieldService {
 
     @Autowired
-    private EntityFieldRepository repository;
+    private ScreenFieldRepository repository;
     
     @Autowired
     private EntityManager entityManager;
     
-    public EntityField save(EntityField entityField) {
-        return repository.save(entityField);
+    public ScreenField save(ScreenField screenField) {
+        return repository.save(screenField);
     }
 
-    public EntityField update(EntityField entityField) {
-        return repository.save(entityField);
+    public ScreenField update(ScreenField screenField) {
+        return repository.save(screenField);
     }
 
     public void delete(Long id) {
         repository.deleteById(id);
     }
 
-    public EntityField findById(Long id) {
+    public ScreenField findById(Long id) {
         return repository.findById(id).orElse(null);
     }
     
-	public List<EntityField> findByEntity(Long entity) {
-		return repository.findByEntity(entity);
+	public List<ScreenField> findByScreen(Long screen) {
+		return repository.findByScreen(screen);
 	}
 
-    public Page<EntityField> findAll(Pageable pageable) {
+    public Page<ScreenField> findAll(Pageable pageable) {
         return repository.findAll(pageable);
     }
     
     public List<HashMap<String, Object>> search(QueryBuilder queryBuilder) throws Exception {
-        return QueryBuilder.QueryResult(queryBuilder, "ENTITY_FIELD", EntityField.class, entityManager);
+        return QueryBuilder.QueryResult(queryBuilder, "SCREEN_FIELD", ScreenField.class, entityManager);
     }
 
 

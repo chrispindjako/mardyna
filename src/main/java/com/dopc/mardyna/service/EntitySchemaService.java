@@ -51,17 +51,16 @@ public class EntitySchemaService {
     public List<HashMap<String, Object>> search(QueryBuilder queryBuilder) throws Exception {
         return QueryBuilder.QueryResult(queryBuilder, "ENTITY_SCHEMA", EntitySchema.class, entityManager);
     }
+    
+    public Integer count(QueryBuilder queryBuilder) throws Exception {
+        return QueryBuilder.countResult(queryBuilder, "ENTITY_SCHEMA", entityManager);
+    }
 
-	public EntitySchema generate(Long id) {
+	public EntitySchema synchronize(Long id) {
 		EntitySchema entitySchema =  findById(id);
-		entitySchema.setIsgenerated(true);
+		entitySchema.setSynchronize(true);
 		return save(entitySchema);
 	}
 	
-	public EntitySchema unGenerate(Long id) {
-		EntitySchema entitySchema =  findById(id);
-		entitySchema.setIsgenerated(false);
-		return save(entitySchema);
-	}
 
 }

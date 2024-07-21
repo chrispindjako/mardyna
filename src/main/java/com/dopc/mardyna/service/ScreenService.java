@@ -54,6 +54,16 @@ public class ScreenService {
     public List<HashMap<String, Object>> search(QueryBuilder queryBuilder) throws Exception {
         return QueryBuilder.QueryResult(queryBuilder, "SCREEN", Screen.class, entityManager);
     }
+    
+    public Integer count(QueryBuilder queryBuilder) throws Exception {
+        return QueryBuilder.countResult(queryBuilder, "SCREEN", entityManager);
+    }
+    
+	public Screen synchronize(Long id) {
+		Screen screen =  findById(id);
+		screen.setSynchronize(true);
+		return save(screen);
+	}
 
 
 }

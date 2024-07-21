@@ -36,15 +36,16 @@ public class Screen  implements Serializable {
     @Column(name = "updateddat", nullable = false)
     private Date updatedAt;
 
-    
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    private EntitySchema entitySchema;
+    @Column(name = "isgenerated", nullable = true)
+    private Boolean isgenerated;
+
+    @Column(name = "synchronize", nullable = true)
+    private Boolean synchronize;
 
 	public Screen() {
 		super();
 		this.createdAt = new Date();
 		this.updatedAt = new Date();
-		// this.fields = new ArrayList<EntityField>();
 	}
 	
 	public void setId(Long id) {
@@ -111,16 +112,21 @@ public class Screen  implements Serializable {
 	public void setEntity(Long entity) {
 		this.entity = entity;
 	}
-	
-	
 
-//	public EntitySchema getEntitySchema() {
-//		return entitySchema;
-//	}
-//
-//	public void setEntitySchema(EntitySchema entitySchema) {
-//		this.entitySchema = entitySchema;
-//	}
+	public Boolean getIsgenerated() {
+		return isgenerated;
+	}
 
-    
+	public void setIsgenerated(Boolean isgenerated) {
+		this.isgenerated = isgenerated;
+	}
+
+	public Boolean getSynchronize() {
+		return synchronize;
+	}
+
+	public void setSynchronize(Boolean synchronize) {
+		this.synchronize = synchronize;
+	}
+	
 }

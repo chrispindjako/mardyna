@@ -51,13 +51,14 @@ public class EntitySchemaController {
         return service.search(queryBuilder);
     }
     
-    @GetMapping("/generate/{id}")
-    public EntitySchema generate(@PathVariable Long id) {
-        return service.generate(id);
+    @PostMapping("/count")
+    public Integer count(@RequestBody QueryBuilder queryBuilder) throws Exception {
+        return service.count(queryBuilder);
     }
     
-    @GetMapping("/ungenerate/{id}")
-    public EntitySchema unGenerate(@PathVariable Long id) {
-        return service.unGenerate(id);
+    @GetMapping("/synchronize/{id}")
+    public EntitySchema synchronize(@PathVariable Long id) {
+        return service.synchronize(id);
     }
+    
 }
